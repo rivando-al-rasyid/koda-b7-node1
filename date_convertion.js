@@ -14,14 +14,14 @@ rl.question("Format penulisan adalah DD-MM-YYYY (Contoh: 30-12-2026)? ", (tangga
     if (!(date_regex.test(tanggal))) {
       console.log("Maaf, format tanggal yang kamu masukkan salah atau tanggal tidak valid.");
     } else {
-      tgl = tanggal.split("-")
+
+      let tgl = tanggal.split("-")
       hari = tgl[0]
       bulan = tgl[1]
       tahun = tgl[2]
+      let tglcustom= `${bulan}-${hari}-${tahun}`;
 
-
-
-      let output = new Date(`${bulan}-${hari}-${tahun}`).toLocaleDateString("en-GB");
+      let output = new Date(tglcustom).toLocaleDateString("en-GB");
       console.log("Hasil konversi:", output);
     }
   } catch (e) {
