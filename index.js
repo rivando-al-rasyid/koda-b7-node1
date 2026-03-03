@@ -1,17 +1,29 @@
-import moment from "moment"
+import moment from "moment";
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 
-const rl = readline.createInterface({ input, output });
+async function getInput() {
+    const rl = readline.createInterface({ input, output });
+    const tanggal = await rl.question('Masukkan tanggal (DD-MM-YYYY, Contoh: 03-03-2026): ');
+    rl.close();
+    return tanggal;
+}
 
-const tanggal = await rl.question('Format penulisan adalah DD-MM-YYYY (Contoh: 03-03-2026)?');
-
+function processDate(tanggal) {
     const isValid = moment(tanggal, "DD-MM-YYYY", true).isValid();
+    if (!isValid) return null;
+    return moment(tanggal, "DD-MM-YYYY").format('DD/MM/YYYY');
+}
 
-    if (!isValid) {
-      console.log("Maaf, format tanggal yang kamu masukkan salah atau tanggal tidak valid.");
-    } else {
-      let output = moment(tanggal, "DD-MM-YYYY").format('DD/MM/YYYY');
-      console.log("Hasil konversi:", output);
+function showResult(hasil) {
+    if (!hasil) {
+        console.error("❌ Format tanggal tidak valid. Gunakan format DD-MM-YYYY.");
+        process.exit(1);
     }
-rl.close();
+    console.log("✅ Hasil konversi:", hasil);
+}
+
+// --- MAIN ---
+const tanggal = await getInput();
+const hasil = processDate(tanggal);
+showResult(hasil);
