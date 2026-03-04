@@ -8,7 +8,6 @@ const rl = readline.createInterface({ input, output });
 
 const Quotes = await rl.question('Quotes Hari Ini? ');
 
-console.log(cowsay(`will anyone read this?`));
-console.log(` ${Quotes}`);
+console.log(cowsay(`${Quotes}`));
 
 rl.close();
